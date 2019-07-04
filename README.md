@@ -1,2 +1,2 @@
 # Asterisk
-Generating Training Data Made Easy
+Generating Training Data made Easy
