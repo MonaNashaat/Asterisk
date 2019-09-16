@@ -9,7 +9,7 @@ class Results:
 #'''The class that that saves, load and plots the results.'''
 
     def __init__(self, experiment = None, nExperiments = None):
-        print('yarab')
+        
         # the performances measures that can be computed
         self.existingMetrics = ['accuracy', 'auc', 'IoU', 'dice', 'f-measure']
         
@@ -57,7 +57,7 @@ class Results:
     def plotResults(self, metrics = None):
         '''Plot the performance in the metrics, if metrics is not specified, plot all the metrics that were saved'''
         # add small epsilon to the denominator to avoid division by zero
-        print('yarab')
+        
         small_eps = 0.000001
         col = self._get_cmap(len(self.alearners)+1)
         line_styles=self.get_lineStype(len(self.alearners)+1)

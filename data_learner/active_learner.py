@@ -5,6 +5,7 @@ from scipy import stats
 from sklearn.ensemble import RandomForestClassifier
 import time
 
+
 class ActiveLearner:
     '''This is the base class for active learning models'''
 
@@ -36,7 +37,6 @@ class ActiveLearner:
     def train(self):
         
         '''train the base classification model on currently available datapoints'''
-        
         trainDataKnown = self.dataset.trainData[self.indicesKnown,:]
         trainLabelsKnown = self.dataset.trainLabels[self.indicesKnown[:]]
         trainLabelsKnown = np.ravel(trainLabelsKnown)
@@ -71,67 +71,6 @@ class ActiveLearner:
             
         return performance
 
-    
-        
-class ActiveLearnerRandom(ActiveLearner):
-    '''Randomly samples the points'''
-    
-    def selectNext(self):
-                
-        self.indicesUnknown = np.random.permutation(self.indicesUnknown)
-        self.indicesKnown = np.concatenate(([self.indicesKnown, np.array([self.indicesUnknown[0]])]));
-        nextquery =   self.indicesUnknown[0]          
-        self.indicesUnknown = self.indicesUnknown[1:]
-        #----------------------------
-        #print('before:')
-        #print('labeled_indecies'+str(self.labeled_indecies.shape))
-        #print('labeled_labels'+str(self.labeled_labels.shape))
-        #print('labeled_data'+str(self.labeled_data.shape))        
-        self.labeled_indecies = np.append(self.labeled_indecies, nextquery)
-        self.labeled_labels = np.append(self.labeled_labels, self.dataset.trainLabels[nextquery])
-        self.labeled_data = np.append(self.labeled_data, self.dataset.trainData[nextquery,:])
-        #print('after:')
-        #print('labeled_indecies'+str(self.labeled_indecies.shape))
-        #print('labeled_labels'+str(self.labeled_labels.shape))
-        #print('labeled_data'+str(self.labeled_data.shape))
-        #----------------------------
-                
-                
-        
-        
-class ActiveLearnerUncertainty(ActiveLearner):
-    '''Points are sampled according to uncertainty sampling criterion'''
-    
-    def selectNext(self):
-                
-        # predict for the rest the datapoints
-        unknownPrediction = self.model.predict_proba(self.dataset.trainData[self.indicesUnknown,:])[:,0]
-        selectedIndex1toN = np.argsort(np.absolute(unknownPrediction-0.5))[0]
-        selectedIndex = self.indicesUnknown[selectedIndex1toN]
-        self.indicesKnown = np.concatenate(([self.indicesKnown, np.array([selectedIndex])]))
-        self.indicesUnknown = np.delete(self.indicesUnknown, selectedIndex1toN)  
-        
-        #----------------------------
-        #print('before:')
-        #print('labeled_indecies'+str(self.labeled_indecies.shape))
-        #print('labeled_labels'+str(self.labeled_labels.shape))
-        #print('labeled_data'+str(self.labeled_data.shape))        
-        self.labeled_indecies = np.append(self.labeled_indecies, selectedIndex1toN)
-        self.labeled_labels = np.append(self.labeled_labels, self.dataset.trainLabels[selectedIndex1toN])
-        self.labeled_data = np.append(self.labeled_data, self.dataset.trainData[selectedIndex1toN,:])
-        #print('after:')
-        #print('labeled_indecies'+str(self.labeled_indecies.shape))
-        #print('labeled_labels'+str(self.labeled_labels.shape))
-        #print('labeled_data'+str(self.labeled_data.shape))
-        #----------------------------
-        
-        
-        #return selectedIndex1toN, self.dataset.trainLabels[selectedIndex1toN], self.dataset.trainData[selectedIndex1toN,:]
-        
-    
-
-
-        
 class ActiveLearnerLAL(ActiveLearner):
     '''Points are sampled according to a method described in K. Konyushkova, R. Sznitman, P. Fua 'Learning Active Learning from data'  '''
     
@@ -145,7 +84,8 @@ class ActiveLearnerLAL(ActiveLearner):
     def selectNext(self):
         
         unknown_data = self.dataset.trainData[self.indicesUnknown,:]
-        known_labels = self.dataset.trainLabels[self.indicesKnown[:]    ]
+        known_labels = self.dataset.trainLabels[self.indicesKnown[:]]
+        
         n_lablled = np.size(self.indicesKnown)
         n_dim = np.shape(self.dataset.trainData)[1]
         
@@ -180,39 +120,15 @@ class ActiveLearnerLAL(ActiveLearner):
         # retrieve the real index of the selected datapoint    
         selectedIndex = self.indicesUnknown[selectedIndex1toN]
         
-        #print('indicesKnown:')
-        #print(self.indicesKnown)
-        #print('indicesUnknown:')
-        #print(self.indicesUnknown)
-        
-        #print('Selected Index:')
-        #print(selectedIndex)
-        
         if selectedIndex in self.indicesKnown:
-            #print('The index is already added!')
             selectNext(self)
-        else:
-    
+        else: 
     
             self.indicesKnown = np.concatenate(([self.indicesKnown, np.array([selectedIndex])]))
             self.indicesUnknown = np.delete(self.indicesUnknown, selectedIndex1toN)  
-        
-        
-        #----------------------------
-        #print('before:')
-        #print('labeled_indecies'+str(self.labeled_indecies.shape))
-        #print('labeled_labels'+str(self.labeled_labels.shape))
-        #print('labeled_data'+str(self.labeled_data.shape))        
-            self.labeled_indecies = np.append(self.labeled_indecies, selectedIndex)
-            self.labeled_labels = np.append(self.labeled_labels, self.dataset.trainLabels[selectedIndex])
+            #self.labeled_indices = np.append(self.labeled_indecies, selectedIndex)
+            self.labeled_indices = np.append(self.labeled_indices, self.dataset.trainData[selectedIndex,0])            
+            #self.labeled_labels = np.append(self.labeled_labels, self.dataset.trainLabels[selectedIndex])
+            self.labeled_labels = np.append(self.labeled_labels, self.dataset.trainLabels[selectedIndex])            
             self.labeled_data = np.append(self.labeled_data, self.dataset.trainData[selectedIndex,:])
-        #print('after:')
-        #print('labeled_indecies'+str(self.labeled_indecies.shape))
-        #print('labeled_labels'+str(self.labeled_labels.shape))
-        #print('labeled_data'+str(self.labeled_data.shape))
-        #----------------------------
-        
-        
-        #return selectedIndex1toN, self.dataset.trainLabels[selectedIndex1toN], self.dataset.trainData[selectedIndex1toN,:]
-        
-    
+            
