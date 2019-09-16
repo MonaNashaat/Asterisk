@@ -9,12 +9,11 @@ Created on Mon Jan 28 13:53:47 2019
 import pandas as pd
 import numpy as np
 import csv
-from doc_preprocessors import TSVDocPreprocessor
-from parser.spacy_parser import Spacy
-from parser import CorpusParser
+from .doc_preprocessors import TSVDocPreprocessor
 
+from .spacy_parser import Spacy
 
-
+from .corpus_parser import CorpusParser
 
 def read_data(input_file, y_column):
     df_test = pd.read_csv(input_file, sep=',')    
