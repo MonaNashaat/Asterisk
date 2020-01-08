@@ -1,23 +1,3 @@
-Welcome file
-
-Type
-Text
-Size
-1 KB (1,423 bytes)
-Storage used
-1 KB (1,423 bytes)
-Location
-My Drive
-Owner
-me
-Modified
-6:44 PM by me
-Opened
-6:44 PM by me
-Created
-6:44 PM with StackEdit
-Add a description
-Viewers can download
 # Asterisk*
 *Generating Training Data made Easy*
 
