@@ -18,5 +18,6 @@ within it.
 
 ## Publications
 
- - M. Nashaat, A. Ghosh, J. Miller, S. Quader, C. Marston and J. Puget,    "Hybridization of Active Learning and Data Programming for Labeling Large Industrial Datasets,"  *2018 IEEE International Conference on    Big Data (Big Data)* , Seattle, WA, USA, 2018, pp. 46-55. doi: 10.1109/BigData.2018.8622459.
- - M. Nashaat, A. Ghosh, J. Miller, and S. Quader, "WeSAL: Applying Active Supervision to Find High-quality Labels at Industrial Scale", *Proceedings of the 53rd Hawaii International Conference on System Sciences*, HI, USA, 2020, pp. 219-228.
+- M. Nashaat, A. Ghosh, J. Miller, and S. Quader, “Asterisk: Generating Large Training Datasets with Automatic Active Supervision,”  *ACM Transactions on Data Science (TDS)*, May 2020. 
+- M. Nashaat, A. Ghosh, J. Miller, and S. Quader, "WeSAL: Applying Active Supervision to Find High-quality Labels at Industrial Scale", *Proceedings of the 53rd Hawaii International Conference on System Sciences*, HI, USA, 2020, pp. 219-228.
+- M. Nashaat, A. Ghosh, J. Miller, S. Quader, C. Marston and J. Puget,    "Hybridization of Active Learning and Data Programming for Labeling Large Industrial Datasets,"  *2018 IEEE International Conference on Big Data (Big Data)* , Seattle, WA, USA, 2018, pp. 46-55. doi: 10.1109/BigData.2018.8622459.
