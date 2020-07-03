@@ -3,8 +3,9 @@
 
 **Asterisk** is a framework to generate high-quality training datasets at scale. Instead of relying on the end users to write user-defined heuristics, the proposed approach exploits a small set of labeled data and automatically produces a set of heuristics to assign initial labels. In order to enhance the quality of the generated labels, the framework improves the accuracies of the heuristics by applying a novel data-driven AL process. During the process, the system examines the generated weak labels along with the modeled accuracies of the heuristics to help the learner decide on the points for which the user should provide true labels.
 
+<p align="center">
 <img src="./images/asterisk.jpg" align="center" width="700">
-
+</p>
 ## Installation
 
 To install Asterisk, you can use  `pip`:
